@@ -1,0 +1,25 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+#message{
+	color:green;
+}
+ul.users {
+	list-style: none;
+	border: 1px solid lightgray;
+	border-radius: 5px;
+	box-shadow: 0px 0px 2px gray;
+	padding: 10px;
+}
+ul.users li{
+	padding: 5px 10px;
+	background: lightgray;
+	color: #1c1c1c;
+	margin-bottom: 5px;
+	cursor: pointer;
+}
