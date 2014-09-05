@@ -80,30 +80,29 @@ var io = require('socket.io').listen(server);
 
 
 //push notification
+var userSockets = [];
 var users = [];
-var user = {
-    id:1,
-    name:''
-}
 var id = 0;
 io.sockets.on('connection',function(socket){
     //var id = users.push(socket);
     id++;
     console.log('usuario '+id);
-    user.id = id;
-    user.name = 'user'+id;
+    var user = {
+        id: id,
+        name: 'user'+id
+    }
     users.push(user);
-    
+    userSockets.push(socket);
     socket.emit('sesion',{
         id:user.id,
         name:user.name
     });
     //console.log(users.length+' usuarios conectados');
-    socket.emit('users',users);
+    io.sockets.emit('users',users); //envia a todos incluidos al usuario mismo
     console.log('user:' + users[id-1]);
     socket.on('push',function(data){
-        console.log('se ha recibido un ' + data.reaction + ' ' + data.videoUserId);  
-        users[data.videoUserId-1].emit('push',{reaction:data.reaction,user:user.name});
+        console.log(data.videoUserId+' ha recibido un ' + data.reaction + ' ' + user.id);  
+        userSockets[parseInt(data.videoUserId)-1].emit('push',{reaction:data.reaction,user:user.id});
     });
 
     
